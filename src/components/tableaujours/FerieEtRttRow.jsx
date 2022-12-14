@@ -1,43 +1,43 @@
 import { useState } from 'react'
 
-export default function FerieEtRttRow({ FerieEtRtt, deleteListe, toggleEditListe }) {
-  const [date, setDate] = useState(FerieEtRtt.date)
-  const [type, setType] = useState(FerieEtRtt.type)
-  const [jour, setJour] = useState(FerieEtRtt.jour)
-  const [commentaires, setCommentaires] = useState(FerieEtRtt.commentaires)
+export default function FerieEtRttRow({ ferieetrtt, deleteFerieEtRtt, toggleEditFerieEtRtt, editFerieEtRtt }) {
+  const [dates, setDates] = useState(ferieetrtt.dates)
+  const [type, setType] = useState(ferieetrtt.type)
+  const [jour, setJour] = useState(ferieetrtt.jour)
+  const [commentaires, setCommentaires] = useState(ferieetrtt.commentaires)
 
   function handleChange(e) {
     const inputValue = e.target.value;
     switch (e.target.name) {
-      case 'date':
-        setDate(inputValue);
-        FerieEtRtt.date = inputValue;
+      case 'dates':
+        setDates(inputValue);
+        editFerieEtRtt(ferieetrtt.dates, {dates: inputValue})
         return;
       case 'type':
         setType(inputValue);
-        FerieEtRtt.type = inputValue;
+        editFerieEtRtt(ferieetrtt.type, {type: inputValue})
         return;
       case 'jour':
         setJour(inputValue);
-        FerieEtRtt.jour = inputValue;
+        editFerieEtRtt(ferieetrtt.jour, {jour: inputValue})
         return;
       case 'commentaires':
         setCommentaires(inputValue);
-        FerieEtRtt.commentaires = inputValue;
+        editFerieEtRtt(ferieetrtt.commentaires, {commentaires: inputValue})
         return;
     }
-  
+  }
 
   return (
     <tr>
-      {FerieEtRtt.editable ? (
+      {ferieetrtt.editable ? (
         <>
           <td>
             <input
-              type="Date"
-              name="Date"
+              type="text"
+              name="dates"
               onChange={handleChange}
-              value={date} />
+              value={dates} />
           </td>
           <td>
             <input
@@ -63,25 +63,25 @@ export default function FerieEtRttRow({ FerieEtRtt, deleteListe, toggleEditListe
         </>
       ) : (
         <>
-          <td>{FerieEtRtt.date} €</td>
-          <td>{FerieEtRtt.type}</td>
-          <td>{FerieEtRtt.jour}</td>
-          <td>{FerieEtRtt.commentaires} €</td>
+          <td>{ferieetrtt.dates}</td>
+          <td>{ferieetrtt.type}</td>
+          <td>{ferieetrtt.jour}</td>
+          <td>{ferieetrtt.commentaires}</td>
         </>
       )}
       <>
         <td className="text-center">
-          <a
-            onClick={toggleEditListe}
+          <button
+            onClick={toggleEditFerieEtRtt}
             className="btn btn-sm btn-info me-1">
-            {FerieEtRtt.editable ? '✔︎' : '✎'}
-          </a>
-          <a
-            onClick={deleteListe}
-            className="btn btn-sm btn-danger">✖︎</a>
+            {ferieetrtt.editable ? '✔︎' : '✎'}
+          </button>
+          <button
+            onClick={deleteFerieEtRtt}
+            className="btn btn-sm btn-danger">✖︎</button>
         </td>
 
       </>
     </tr>
   )
-}}
+}

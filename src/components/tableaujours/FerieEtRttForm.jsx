@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 
 export default function FerieEtRttForm({ addFerieEtRtt }) {
-  const [error, setError] = useState('');
+  let [error, setError] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -27,7 +27,7 @@ export default function FerieEtRttForm({ addFerieEtRtt }) {
 
   function getInputForm(name, placeholder, type = 'text') {
     return (
-      <div className="form-floating m-3">
+      <div className="form-floating m-1">
         <input
           id={name}
           name={name}
@@ -57,7 +57,7 @@ export default function FerieEtRttForm({ addFerieEtRtt }) {
       <form
         onSubmit={handleSubmit}
         className="text-center"
-        style={{ minWidth: '500px' }}>
+        style={{ minWidth: '300px' }}>
         { getInputForm('dates', 'Date du jour') }
         { getInputForm('type', 'Type du jour') }
         { getInputForm('jour', 'Journée concernée') }
@@ -65,7 +65,7 @@ export default function FerieEtRttForm({ addFerieEtRtt }) {
         <button
           type="submit"
           className="btn btn-success">
-            Submit
+            Ajouter journée.
         </button>
       </form>
     </>

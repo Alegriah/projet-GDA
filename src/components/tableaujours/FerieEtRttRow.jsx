@@ -1,36 +1,44 @@
 import { useState } from 'react'
+import axios from 'axios'
 
-export default function FerieEtRttRow({ ferieetrtt, deleteFerieEtRtt, toggleEditFerieEtRtt, editFerieEtRtt }) {
-  const [dates, setDates] = useState(ferieetrtt.dates)
-  const [type, setType] = useState(ferieetrtt.type)
-  const [jour, setJour] = useState(ferieetrtt.jour)
-  const [commentaires, setCommentaires] = useState(ferieetrtt.commentaires)
+export default function FerieEtRttRow({ 
+  liste, 
+  deleteFerieEtRtt,
+  toggleEditFerieEtRtt,
+  editFerieEtRtt,
+ }) {
+
+  const [ dates, setDates ] = useState(liste.dates)
+  const [ type, setType ] = useState(liste.type)
+  const [ jour, setJour ] = useState(liste.jour)
+  const [ commentaires, setCommentaires ] = useState(liste.commentaires)
 
   function handleChange(e) {
     const inputValue = e.target.value;
     switch (e.target.name) {
       case 'dates':
         setDates(inputValue);
-        editFerieEtRtt(ferieetrtt.dates, {dates: inputValue})
+        editFerieEtRtt(liste.dates, {dates: inputValue})
         return;
       case 'type':
         setType(inputValue);
-        editFerieEtRtt(ferieetrtt.type, {type: inputValue})
+        editFerieEtRtt(liste.type, {type: inputValue})
         return;
       case 'jour':
         setJour(inputValue);
-        editFerieEtRtt(ferieetrtt.jour, {jour: inputValue})
+        editFerieEtRtt(liste.jour, {jour: inputValue})
         return;
       case 'commentaires':
         setCommentaires(inputValue);
-        editFerieEtRtt(ferieetrtt.commentaires, {commentaires: inputValue})
+        editFerieEtRtt(liste.commentaires, {commentaires: inputValue})
         return;
     }
   }
 
   return (
     <tr>
-      {ferieetrtt.editable ? (
+      {liste.editable ? 
+      (
         <>
           <td>
             <input
@@ -49,24 +57,26 @@ export default function FerieEtRttRow({ ferieetrtt, deleteFerieEtRtt, toggleEdit
           <td>
             <input
               type="text"
-              name="Jour"
+              name="jour"
               onChange={handleChange}
               value={jour} />
           </td>
           <td>
             <input
               type="text"
-              name="Commentaires"
+              name="commentaires"
               onChange={handleChange}
               value={commentaires} />
           </td>
         </>
-      ) : (
+      ) 
+      : 
+      (
         <>
-          <td>{ferieetrtt.dates}</td>
-          <td>{ferieetrtt.type}</td>
-          <td>{ferieetrtt.jour}</td>
-          <td>{ferieetrtt.commentaires}</td>
+          <td>{liste.dates}</td>
+          <td>{liste.type}</td>
+          <td>{liste.jour}</td>
+          <td>{liste.commentaires}</td>
         </>
       )}
       <>
@@ -74,7 +84,7 @@ export default function FerieEtRttRow({ ferieetrtt, deleteFerieEtRtt, toggleEdit
           <button
             onClick={toggleEditFerieEtRtt}
             className="btn btn-sm btn-info me-1">
-            {ferieetrtt.editable ? '✔︎' : '✎'}
+            {liste.editable ? '✔︎' : '✎'}
           </button>
           <button
             onClick={deleteFerieEtRtt}
